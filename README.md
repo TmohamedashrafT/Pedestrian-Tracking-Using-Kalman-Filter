@@ -66,3 +66,9 @@ the result will be:
       [ var(x_v) * t                     0                          var(x_v)                   0        ]
       [ 0                             var(y_v) * t                     0                   var(y_v)     ]
 This new matrix shows the covariance between the positions and their velocities, while there is no covariance between two positions or two velocities, which makes sense.
+
+Now, let's move on to the update phase, also referred to as the correction phase. After calculating the predictions, we receive measurements from the sensor. Then, we compare the prediction with the measurement by applying the following equations.
+
+In the initial equations, we calculate the Kalman gain. The intuition behind the Kalman gain lies in providing a number within the range of 0 to 1. This number indicates whether the higher error exists in the estimator or in the measurement. For instance, if the error in the estimator is considerably high compared to the relatively small measurement error, the Kalman gain will tend to converge towards one, and vice versa.
+
+![image](https://github.com/TmohamedashrafT/Pedestrian-Tracking-Using-Kalman-Filter/blob/main/Kalman%20gain%20eq.webp)
