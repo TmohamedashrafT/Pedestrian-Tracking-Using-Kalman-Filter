@@ -33,12 +33,36 @@ Suppose the object is initially at position w_0 with velocity V_0 at time t_0 . 
 We also initialize other matrices such as B, which is related to other inputs that might affect velocity (e.g., braking), the process covariance Q related to the uncertainty of the estimator's prediction (shape: 4×4), the measurement error covariance R related to the sensor's error (values in a diagonal matrix of shape: (measurement size,measurement size)), and finally, the measurement matrix  H is responsible for converting the format of P and X to the desired matrix based on what the sensor measures and what we predict from this model (shape:(measurement size,measurement size)).
 
 At t_1, after initializing these matrices and the object, we need to estimate the current state. This involves the prediction phase.in General, If we need to determine the object's position using motion equations, we would use the equation X1 = X0 + V_0 * t + 0.5 * a * t ** 2. In the first prediction equation (Assuming constant velocity (no acceleration)) X_t-1 = A * X_t
-with A look like:
+with State transition (A):
 
       [ 1  0  t  0 ]
       [ 0  1  0  t ]
       [ 0  0  1  0 ]
       [ 0  0  0  1 ]
+And State matrix (X):
 
+      [ x   ]
+      [ y   ] 
+      [ x_v ]
+      [ y_v ]
  
+So, the result will be:
 
+      [ x + x_v * t ]
+      [ y + y_v * t ]
+      [     x_v     ]
+      [     y_v     ]
+This represents the new state. Moving to the second equation in the prediction phase to predict the covariance matrix, A.P.A.T updates and alters the entire covariance matrix. 
+The Covariance matrix (P):
+
+      [ var(x) 0 0  0  ]
+      [ 0 var(y) 0  0  ]
+      [ 0 0 var(x_v) 0 ]
+      [ 0 0 0 var(y_v] ]
+the result will be:
+
+      [ var(x) + var(x_v) * t **2       0                         var(x_v) * t                   0      ]
+      [ 0                         var(y) + var(y_v) * t **2            0                  var(y_v) * t  ]
+      [ var(x_v) * t                     0                          var(x_v)                   0        ]
+      [ 0                             var(y_v) * t                     0                   var(y_v)     ]
+This new matrix shows the covariance between the positions and their velocities, while there is no covariance between two positions or two velocities, which makes sense.
