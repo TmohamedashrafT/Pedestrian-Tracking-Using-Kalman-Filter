@@ -99,10 +99,8 @@ since we receive only 4 measurements from the model.The estimator calculates the
 The Kalman filter is implemented in this file [`Kalman_filter`](https://github.com/TmohamedashrafT/Pedestrian-Tracking-Using-Kalman-Filter/blob/main/Kalman_filter.py).
 
 The estimator was experimented in pedestrian tracking problems, using the Hungarian algorithm as the association metric and YOLOv5s as the detector. The results are as follows
-[<img src="https://github.com/TmohamedashrafT/Pedestrian-Tracking-Using-Kalman-Filter/blob/main/kalman%20pipline.png" width="600" height="300"
-/>](https://github.com/TmohamedashrafT/Pedestrian-Tracking-Using-Kalman-Filter/blob/main/output.mp4)
 
-
+![](https://github.com/TmohamedashrafT/Pedestrian-Tracking-Using-Kalman-Filter/blob/main/output.mp4)
 
 
 
