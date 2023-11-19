@@ -105,7 +105,10 @@ The estimator was experimented in pedestrian tracking problems, using the Hungar
 
 https://github.com/TmohamedashrafT/Pedestrian-Tracking-Using-Kalman-Filter/assets/93071951/b3737897-f968-4214-bdd2-0028890a9c50
 
-
+## References
+- https://www.youtube.com/playlist?list=PLX2gX-ftPVXU3oUFNATxGXY90AULiqnWT
+- https://medium.com/@jaems33/understanding-kalman-filters-with-python-2310e87b8f48
+- https://towardsdatascience.com/what-i-was-missing-while-using-the-kalman-filter-for-object-tracking-8e4c29f6b795
 
 
 
