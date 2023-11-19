@@ -72,3 +72,50 @@ Now, let's move on to the update phase, also referred to as the correction phase
 In the initial equations, we calculate the Kalman gain. The intuition behind the Kalman gain lies in providing a number within the range of 0 to 1. This number indicates whether the higher error exists in the estimator or in the measurement. For instance, if the error in the estimator is considerably high compared to the relatively small measurement error, the Kalman gain will tend to converge towards one, and vice versa.
 
 ![image](https://github.com/TmohamedashrafT/Pedestrian-Tracking-Using-Kalman-Filter/blob/main/Kalman%20gain%20eq.webp)
+
+After calculating the Kalman gain, the next step involves updating the state matrix (X) and the covariance matrix (P). To update X, we compute the difference between the measurement and the predicted value. Then, we multiply this result by the Kalman gain and add it to the predicted state.
+
+The rationale behind this step is to guide the estimator in placing trust either in the prediction or in the measurement. For instance, if the Kalman gain is closer to one, indicating that the measurement error is significantly lower compared to the prediction error, the estimator should place more emphasis on the measurement. Consequently, the disparity between the measurement and the prediction will have a greater impact on the predicted value.
+
+Conversely, when the Kalman gain is lower, signaling that the prediction error is considerably lower than the measurement error, the estimator diminishes the influence of this difference. In such cases, the estimator places greater confidence in the predicted value.
+
+
+Finally, in the iteration update, the covariance matrix is adjusted based on the error in the measurement. If the measurement error is high, the model needs to be cautious about trusting the data. Consequently, it shouldn't rapidly diminish the prediction error. Therefore, the estimator reduces the error incrementally.
+
+Conversely, when the measurement error is very low, the estimator relies heavily on the measurement, leading to quicker convergence to the real state and a reduction in prediction error.
+
+This behavior is reflected in the equation that computes the difference between the identity matrix and the Kalman gain, which is then multiplied by the covariance matrix. If the Kalman gain is high (indicating low measurement error), the term (I - KG) will be very small. As a result, it rapidly diminishes the error in the covariance. Conversely, if the Kalman gain is low, the adjustment will be slower.
+
+## Tracking using Kalman filter 
+In a tracking problem pipeline, we only receive the position from the detector model. Therefore, we initialize the velocity as zeros. The state vector X will consist of (x_min, y_min, x_max, y_max, x_min_velocity, y_min_velocity, x_max_velocity, y_max_velocity), while assigning high uncertainty to the velocity components. Additionally, the Measurement matrix will be
+
+      [ 1 0 0 0 0 0 0 0 ]
+      [ 0 1 0 0 0 0 0 0 ]
+      [ 0 0 1 0 0 0 0 0 ]
+      [ 0 0 0 1 0 0 0 0 ]
+
+since we receive only 4 measurements from the model.The estimator calculates the velocity of points when a new position measurement becomes available from the model. The Kalman filter compares this measured position with the predicted position obtained from the previous step. By calculating the difference between these positions, the filter estimates how much the object's actual position differs from the predicted position.
+
+The Kalman filter is implemented in this file [`Kalman_filter`](https://github.com/TmohamedashrafT/Pedestrian-Tracking-Using-Kalman-Filter/blob/main/Kalman_filter.py).
+
+The estimator was experimented in pedestrian tracking problems, using the Hungarian algorithm as the association metric and YOLOv5s as the detector. The results are as follows
+[<img src="https://github.com/TmohamedashrafT/Pedestrian-Tracking-Using-Kalman-Filter/blob/main/kalman%20pipline.png" width="600" height="300"
+/>](https://github.com/TmohamedashrafT/Pedestrian-Tracking-Using-Kalman-Filter/blob/main/output.mp4)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
