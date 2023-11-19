@@ -9,7 +9,7 @@ class Kalman_filter:
         self.P = np.diag(noise * np.ones(num_of_pred))
         self.P[4:,4:] *= 1000
         ##initialize the state-transition matrix A
-        ## (x_center, y_center, width, height, x_center_velocity, y_center_velocity, width_velocity, height_velocity)
+        ## (x_min, y_min, x_max, y_max, x_min_velocity, y_min_velocity, x_max_velocity, y_max_velocity)
         self.A = np.eye(num_of_pred)
         for i in range(num_of_pred // 2 ):
             self.A[i, num_of_pred // 2 + i] = dt
