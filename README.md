@@ -98,9 +98,12 @@ since we receive only 4 measurements from the model.The estimator calculates the
 
 The Kalman filter is implemented in this file [`Kalman_filter`](https://github.com/TmohamedashrafT/Pedestrian-Tracking-Using-Kalman-Filter/blob/main/Kalman_filter.py).
 
+Because we are tracking multiple objects and generating multiple estimations, we need to associate the tracks with their predictions from the Kalman filter. In this repository, we calculate the IOUs (Intersection over Union) of all tracks with all predictions. Then, we perform association using the Hungarian algorithm. [`utilities.py`](https://github.com/TmohamedashrafT/Pedestrian-Tracking-Using-Kalman-Filter/blob/main/utilities.py)
+
 The estimator was experimented in pedestrian tracking problems, using the Hungarian algorithm as the association metric and YOLOv5s as the detector. The results are as follows
 
-![](https://github.com/TmohamedashrafT/Pedestrian-Tracking-Using-Kalman-Filter/blob/main/output.mp4)
+
+
 
 
 
